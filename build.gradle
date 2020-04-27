@@ -1,0 +1,39 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+  }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+
+version = '0.0.1'
+group = 'ru.ruslan.rx.benchmark'
+sourceCompatibility = 1.8
+
+repositories {
+  mavenLocal()
+  jcenter()
+  mavenCentral()
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'ru.ruslan.rx.benchmark.RxApplication'
+  }
+}
+
+shadowJar {
+  classifier = null
+}
+
+dependencies {
+  compile 'io.reactivex:rxnetty-http:0.5.2'
+  compile 'net.sf.jopt-simple:jopt-simple:5.0.4'
+  compileOnly 'org.projectlombok:lombok:1.16.18'
+}
+tasks.build.finalizedBy shadowJar
